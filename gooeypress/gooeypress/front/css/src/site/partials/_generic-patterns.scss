@@ -1,0 +1,198 @@
+.theme_is_sponsored, .theme_cost {
+	color: #fff;
+	font-weight: 500;
+	position: absolute;
+}
+
+.theme_is_sponsored {
+	background: #2fc970;
+	bottom: 11px;
+	font-size: 19px;
+	left: 0;
+	padding: 4px 20px 8px;
+}
+
+.theme_related_is_sponsored {
+	bottom: 75px;
+	font-size: 13px;
+	left: 10px;
+}
+
+.theme_cost {
+	bottom: 0;
+	font-size: 30px;
+	padding: 4px 8px 13px;
+	right: 0;
+}
+
+.theme_is_free {
+	background: #9a58b7;
+}
+
+.theme_is_paid {
+	background: #399adc;
+}
+
+.save_theme {
+	color: #888;
+	position: absolute;
+	text-decoration: none;
+	
+	@include hover {
+		color: darken($text-color, 10%) !important;
+	}
+	
+	@include icomoon {
+		color: $text-color;
+	}
+	
+	&[data-theme-is-saved="true"] {
+		color: #e24f3d;
+		
+		@include hover {
+			color: darken(#e24f3d, 20%) !important;
+		}
+		
+		@include icomoon {
+			color: #e24f3d;
+		}
+	}
+}
+
+.browse_theme_item_save {
+	font-size: 14px;
+	right: 15px;
+	top: 20px;
+	
+	@include icomoon {
+		font-size: 11px;
+	}
+}
+
+.theme_detail_heading_save {
+	font-size: 17px;
+	right: 0;
+	top: 4px;
+	
+	@include media-query($tablet-bp) {
+		top: 15px;
+	}
+	
+	@include icomoon {
+		font-size: 15px;
+	}
+}
+
+.likes {
+	.icon-heart {
+		color: $text-color;
+		display: inline-block;
+		margin: 0 2px;
+	}
+}
+
+.rating {
+	.icon-star {
+		color: $text-color;
+		display: inline-block;
+		margin-left: 0;
+	}
+	
+	.rating_unrated {
+		color: #bbb;
+	}
+}
+
+.performance_metric {
+	display: inline-block;
+	font-weight: normal;
+	vertical-align: middle;
+	width: 125px;
+}
+
+.performance_rating {
+	background: #eaeaea;
+	@include border-radius(3px);
+	display: inline-block;
+	height: 15px;
+	overflow: hidden;
+	position: relative;
+	vertical-align: middle;
+	width: 102px;
+	
+	&:after {
+		background: #bbb;
+		content: '';
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		top: 0;
+	}
+	
+	@for $i from 0 to 11 {
+		&[data-performance-rating="#{$i + 1}"]:after {
+			width: unquote(($i + 1) * 10 + '%');
+		}
+	}
+}
+
+.accordion_toggler_btn {
+	background: #979797;
+	@include border-radius(7px);
+	padding: 15px 10px;
+	text-align: center;
+	
+	h3 {
+		color: #fff;
+		display: inline-block;
+		font-size: 20px;
+		margin: 0;
+		
+		&:before {
+			content: 'Show ';
+		}
+
+		&:after {
+			content: ' +';
+		}
+	}
+		
+	&.is_open {
+		h3 {
+			&:before {
+				content: 'Hide ';
+			}
+
+			&:after {
+				content: ' –';
+			}
+		}
+	}
+}
+
+.theme_detail_reviews_accordion_toggler_btn {
+	background: #333;
+	
+	h3 {
+		color: #f1c40f;
+	}
+}
+
+.alert-wrapper{
+  position:absolute;
+  width:300px;
+  left:50%;
+  z-index:99;
+}
+.alert-wrapper .alert{
+  position:absolute;
+  background:#fcf8e3;
+  border:1px solid #faebcc;
+  border-radius:4px;
+  width:100%;
+  margin:10px 0 0 -50%;
+  padding:10px;
+  text-align:center;
+
+  p{ margin: 0 }
+}

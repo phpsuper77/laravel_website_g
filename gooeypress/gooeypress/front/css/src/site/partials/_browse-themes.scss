@@ -1,0 +1,158 @@
+.browse_theme_sorter {
+	@include media-query(980px) {
+		float: right;
+		margin-top: -62px;
+	}
+}
+
+.browse_theme_sorter_heading {
+	font-size: 15px;
+	
+	@include media-query(600px) {
+		display: none;
+	}
+}
+
+.browse_theme_sorter_list {
+	li {
+		display: inline-block;
+		margin-bottom: 4px;
+		
+		&:first-child {
+			.browse_theme_sorter_btn {
+				margin-left: 0;
+			}
+		}
+		
+		&:last-child {
+			.browse_theme_sorter_btn {
+				&:after {
+					visibility: hidden;
+				}
+			}
+		}
+	}
+}
+
+.browse_theme_sorter_btn {
+	border: 1px solid transparent;
+	color: #888;
+	display: inline-block;
+	font-size: 17px;
+	margin-left: -6px;
+	padding: 4px 0 4px 9px;
+	text-decoration: none;
+	
+	&:after {
+		color: #888;
+		content: '|';
+		display: inline-block;
+		margin-left: 8px;
+		margin-right: -5px;
+	}
+}
+
+.browse_theme_sorter_btn_current {
+	background: #fff;
+	border-color: #dddde1;
+	@include border-radius(3px);
+	color: #333;
+	
+	&:after {
+		visibility: hidden;
+	}
+	
+	@include icomoon {
+		color: #c1c1c1;
+		font-size: 15px;
+		margin-right: 4px;
+	}
+}
+
+.browse_theme_item {
+  position:relative;
+	border: 1px solid #ddd;
+	@include border-radius(5px);
+	@include box-shadow(0 0 8px rgba(0,0,0,0.05));
+	background: #fff;
+	margin: auto;
+	overflow: hidden;
+	max-width: 320px;
+
+  &:hover .browse_theme_item_hover{
+	display:block;
+  }
+}
+
+.browse_theme_item_link {
+	display: block;
+	position: relative;
+}
+
+.browse_theme_item_content {
+	border: solid #eee;
+	border-width: 1px 0;
+	color: #777;
+	font-size: 13px;
+	padding: 15px;
+	position: relative;
+}
+
+.browse_theme_item_heading {
+	font-size: 20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	@include calc(width, '100% - 60px', 80%);
+	white-space: nowrap;
+}
+
+.browse_theme_item_meta {
+	@extend %clearfix;
+	
+	background: #f9f9f9;
+	color: #777;
+	font-size: 14px;
+	padding: 12px 15px;
+	
+	.icon-heart {
+		font-size: 11px;
+	}
+}
+
+.browse_theme_item_likes {
+	float: left;
+	margin: 0;
+  line-height: 29px;
+}
+
+.browse_theme_item_rating {
+	float: right;
+	margin: 0;
+}
+
+.browse_theme_item_hover {
+  display:none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: rgba(255,255,255,0.75);
+  width: 100%;
+
+  .btns{
+	margin:150px 0 0;
+  }
+
+
+  .btn{
+	display:block;
+	width:70%;
+	margin:15px auto;
+	text-align: center;
+	&.save{
+	  background: #808b8d;
+	  border:none;
+	}
+  }
+
+}

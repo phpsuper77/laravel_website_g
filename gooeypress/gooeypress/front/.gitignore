@@ -1,0 +1,5 @@
+dist
+css/site
+.sass-cache
+node_modules
+shots

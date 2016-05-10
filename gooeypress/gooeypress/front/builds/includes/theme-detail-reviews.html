@@ -1,0 +1,97 @@
+<div class="theme_detail_reviews">
+	<div class="js_accordion std_mb theme_detail_reviews_accordion" data-multiple="true">
+		<ul class="reset_lazy">
+			<li>
+				<a class="accordion_toggler accordion_toggler_btn theme_detail_reviews_accordion_toggler_btn" href="#pane-reviews"><h3>Reviews</h3></a>
+				<div class="accordion_content theme_detail_reviews" id="pane-reviews">
+					<ul class="list_style_none">
+						<li class="theme_detail_reviews_item">
+							<div class="theme_detail_reviews_meta">
+								<span class="theme_detail_reviews_avatar">
+									<img src="{{ imgContentPath }}review-avatar.jpg" width="50" height="50" alt="James Woods' avatar" />
+								</span>
+								<p class="theme_detail_reviews_user">James Woods - <span class="theme_detail_reviews_date">12/12/2013</span></p>
+								<p class="theme_detail_reviews_rating">
+									{{ include('rating-stars.html') }}
+									Rated <b>4</b> out of <b>5</b>
+								</p>
+							</div>
+							
+							<div class="content_area theme_detail_reviews_content_area">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pretium lectus in ullamcorper venenatis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus sed leo luctus, ultrices lectus a, suscipit risus. Fusce sed eleifend nibh. In porttitor, sem eu cursus porta, libero diam accumsan elit, at aliquam quam sapien vitae ligula.</p>
+							</div>
+						</li>
+						<!-- Logged in state -->
+						<li class="theme_detail_reviews_item">
+							<form class="theme_detail_reviews_form" action="#" method="get">
+								<fieldset>
+									<legend>Leave a review</legend>
+									
+									<div class="theme_detail_reviews_meta">
+										<span class="theme_detail_reviews_avatar">
+											<img src="{{ imgContentPath }}review-avatar.jpg" width="50" height="50" alt="James Woods' avatar" />
+										</span>
+										<p class="theme_detail_reviews_user theme_detail_reviews_signin">You are signed in as <a href="#">James Woods</a></p>
+										<div class="theme_detail_reviews_rating">
+											<fieldset class="rating form_rating">
+												<legend>Rate this theme</legend>
+												<input type="radio" id="star5" name="rating" value="5" /> <label for="star5"><span class="icon-star rating_unrated"></span><span class="icon-star rating_rated"></span><span class="hidden">5 stars</span></label>
+												<input type="radio" id="star4" name="rating" value="4" /> <label for="star4"><span class="icon-star rating_unrated"></span><span class="icon-star rating_rated"></span><span class="hidden">4 stars</span></label>
+												<input type="radio" id="star3" name="rating" value="3" /> <label for="star3"><span class="icon-star rating_unrated"></span><span class="icon-star rating_rated"></span><span class="hidden">3 stars</span></label>
+												<input type="radio" id="star2" name="rating" value="2" /> <label for="star2"><span class="icon-star rating_unrated"></span><span class="icon-star rating_rated"></span><span class="hidden">2 stars</span></label>
+												<input type="radio" id="star1" name="rating" value="1" /> <label for="star1"><span class="icon-star rating_unrated"></span><span class="icon-star rating_rated"></span><span class="hidden">1 star</span></label>
+											</fieldset>
+											Rate this theme
+										</div>
+									</div>
+									
+									<div class="content_area theme_detail_reviews_content_area">
+										<div class="f_row block">
+											<label for="themeReview" class="hidden">Comment</label>
+											<textarea name="themeReview" id="themeReview" placeholder="Review this theme"></textarea>
+										</div>
+										<button type="submit" class="btn">Submit Review</button>
+									</div>
+								</fieldset>
+							</form>
+						</li>
+						<!-- Logged out state -->
+						<li class="theme_detail_reviews_item">
+							<form class="theme_detail_reviews_form" action="#" method="get">
+								<fieldset>
+									<legend>Leave a review</legend>
+									
+									<div class="theme_detail_reviews_meta">
+										<span class="theme_detail_reviews_avatar">
+											<img src="{{ imgPath }}review-avatar-anonymous.png" width="50" height="50" alt="" />
+										</span>
+										<p class="theme_detail_reviews_user theme_detail_reviews_signin">Please <a href="#">Sign In</a> to rate and review this theme</p>
+										<div class="theme_detail_reviews_rating">
+											<fieldset class="rating form_rating">
+												<legend>Rate this theme</legend>
+												<input type="radio" id="star5" name="rating" value="5" disabled /> <label for="star5"><span class="icon-star rating_unrated"></span><span class="icon-star rating_rated"></span><span class="hidden">5 stars</span></label>
+												<input type="radio" id="star4" name="rating" value="4" disabled /> <label for="star4"><span class="icon-star rating_unrated"></span><span class="icon-star rating_rated"></span><span class="hidden">4 stars</span></label>
+												<input type="radio" id="star3" name="rating" value="3" disabled /> <label for="star3"><span class="icon-star rating_unrated"></span><span class="icon-star rating_rated"></span><span class="hidden">3 stars</span></label>
+												<input type="radio" id="star2" name="rating" value="2" disabled /> <label for="star2"><span class="icon-star rating_unrated"></span><span class="icon-star rating_rated"></span><span class="hidden">2 stars</span></label>
+												<input type="radio" id="star1" name="rating" value="1" disabled /> <label for="star1"><span class="icon-star rating_unrated"></span><span class="icon-star rating_rated"></span><span class="hidden">1 star</span></label>
+											</fieldset>
+											Rate this theme
+										</div>
+									</div>
+									
+									<div class="content_area theme_detail_reviews_content_area">
+										<div class="f_row block">
+											<label for="themeReview" class="hidden">Comment</label>
+											<textarea name="themeReview" id="themeReview" placeholder="Review this theme" disabled></textarea>
+										</div>
+										<button type="submit" class="btn" disabled>Submit Review</button>
+									</div>
+								</fieldset>
+							</form>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

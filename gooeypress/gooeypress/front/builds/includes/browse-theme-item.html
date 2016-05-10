@@ -1,0 +1,40 @@
+<li class="grid_item browse_theme_grid_item w50_at_600 w33_at_960 w25_at_1200">
+	<div class="browse_theme_item">
+		<a href="#" class="browse_theme_item_link">
+			<img src="{{ imgContentPath }}browse-theme_{{ image }}.jpg" width="320" height="242" alt="{{ theme }}" />
+
+			{{ if sponsored }}
+				<span class="theme_is_sponsored browse_theme_item_is_sponsored">Sponsored</span>
+			{{ endif }}
+
+			{{ if free }}
+				<span class="theme_cost theme_is_free browse_theme_item_cost browse_theme_item_is_free"><span class="hidden">Cost:</span> Free</span>
+			{{ endif }}
+
+			{{ if paid }}
+				<span class="theme_cost theme_is_paid browse_theme_item_cost browse_theme_item_is_paid"><span class="hidden">Cost:</span> ${{ cost }}</span>
+			{{ endif }}
+		</a>
+		
+		<div class="browse_theme_item_content">
+			<h3 class="browse_theme_item_heading">{{ theme }}</h3>
+			
+			{{ if unsaved }}
+			<a href="#unsaved-url" class="save_theme browse_theme_item_save js_save_theme" data-theme-is-saved="false"><span class="icon-pin"></span> Save</a>
+			{{ endif }}
+			
+			{{ if saved }}
+			<a href="#saved-url" class="save_theme browse_theme_item_save js_save_theme" data-theme-is-saved="true"><span class="icon-pin-down"></span> Saved</a>
+			{{ endif }}
+			
+			<p class="no_mb">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tortor nunc, egestas vitae lorem id, rhoncus mollis telluso [&hellip;]</p>
+		</div>
+		
+		<div class="browse_theme_item_meta">
+			<p class="likes browse_theme_item_likes">Likes <span class="icon-heart"></span> 103</p>
+			<p class="browse_theme_item_rating">4.25/23 votes
+				{{ include('rating-stars.html') }}
+			</p>
+		</div>
+	</div>
+</li>

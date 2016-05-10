@@ -1,0 +1,41 @@
+{{ var $title: "All Activity - Account" }}
+{{ var $currentPath: "account_all-activity.html" }}
+
+{{ include('_head.html', {"title": "$title", "bodyClass": ""}) }}
+
+{{ include('header.html') }}
+
+<div id="content">
+	<div id="content_inner" class="std_width">
+		<h1 class="page_title_primary">Account - <span class="h_alt">James Wood</span></h1>
+		
+		{{ include('account-navigation.html', {"currentPath": "$currentPath"}) }}
+		
+		{{ include('col-3.html') }}
+
+		<div id="col_2" role="main">
+			<div class="h1 page_title_duplicate">Account - <span class="h_alt">James Wood</span></div>
+			
+			<div><h2 class="page_sub_title">All Activity</h2></div>
+			
+			<ol class="list_style_none" start="1"> <!-- Change start value depending on which page you're on -->
+				{{ include('activity-panel.html', {"icon": "heart", "remove": true}) }}
+				{{ include('activity-panel.html', {"icon": "pin", "remove": true}) }}
+				{{ include('activity-panel.html', {"icon": "star", "remove": true}) }}
+				{{ include('activity-panel.html', {"icon": "heart", "remove": true}) }}
+				{{ include('activity-panel.html', {"icon": "pin", "remove": true}) }}
+				{{ include('activity-panel.html', {"icon": "star", "remove": true}) }}
+				{{ include('activity-panel.html', {"icon": "heart", "remove": true}) }}
+				{{ include('activity-panel.html', {"icon": "pin", "remove": true}) }}
+				{{ include('activity-panel.html', {"icon": "star", "remove": true}) }}
+			</ol>
+			
+			{{ include('pagination.html') }}
+			
+		</div>
+	</div>
+</div>
+
+{{ include('footer.html') }}
+
+{{ include('_foot.html') }}

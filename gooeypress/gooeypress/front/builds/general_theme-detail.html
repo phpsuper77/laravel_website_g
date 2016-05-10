@@ -1,0 +1,36 @@
+{{ var $title: "Theme Detail" }}
+{{ var $currentPath: "general_theme-details.html" }}
+
+{{ include('_head.html', {"title": "$title", "bodyClass": "no_col_1 no_col_3 heading_inside_content"}) }}
+
+{{ include('header.html') }}
+
+<div id="content">
+	<div id="content_inner" class="std_width">
+		
+		<div id="col_2" role="main">
+			
+			{{ include('related-themes.html', {"class": "theme_related_wider_screen"}) }}
+			
+			<div class="theme_detail">
+				
+				{{ include('theme-detail-info.html') }}
+				
+				{{ include('theme-detail-gallery.html') }}
+				
+				{{ include('theme-detail-content.html') }}
+				
+				{{ include('theme-detail-meta.html') }}
+				
+				{{ include('theme-detail-reviews.html') }}
+			</div>
+			
+			{{ include('related-themes.html', {"class": "theme_related_smaller_screen"}) }}
+			
+		</div>
+	</div>
+</div>
+
+{{ include('footer.html') }}
+
+{{ include('_foot.html') }}

@@ -1,0 +1,11 @@
+<!-- Sadly needs to exist twice to accommodate the design -->
+<div class="theme_related {{ class }}">
+	<h4 class="theme_related_heading">Related Products</h4>
+
+	<ul class="grid_container theme_related_grid_container">
+		{{ include('theme-related-item.html', {"theme": "TwitrCovers", "image": "twitrcovers", "sponsored": false}) }}
+		{{ include('theme-related-item.html', {"theme": "Balance Theme", "image": "balance", "sponsored": true}) }}
+		{{ include('theme-related-item.html', {"theme": "Amped Theme", "image": "amped", "sponsored": false}) }}
+		{{ include('theme-related-item.html', {"theme": "Agency Theme Collection", "image": "agency", "sponsored": false}) }}
+	</ul>
+</div>

@@ -1,0 +1,9 @@
+/.sass-cache
+/css/.sass-cache
+/node_modules
+
+.DS_Store
+Thumbs.db
+
+_ide_helper.php
+.idea

@@ -1,0 +1,5 @@
+{
+    "assetsDir": "app/assets/",
+    "cssOutput": "public/static/css/",
+    "jsOutput": "public/static/js/"
+}

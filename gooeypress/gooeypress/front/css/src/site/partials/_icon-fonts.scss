@@ -1,0 +1,173 @@
+%icomoon {
+	font-family: 'icomoon';
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	line-height: 1;
+	speak: none;
+	text-transform: none;
+	
+	/* Better Font Rendering =========== */
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	
+	@include no-fontface {
+		&:before {
+			content: '' !important;
+		}
+		
+		~ .hidden {
+			display: inline-block;
+			@include font-size-line-height(10px, 12px);
+			height: auto;
+			left: 0;
+			position: static;
+			text-align: left;
+			top: 0;
+			width: auto;
+		}
+	}
+}
+
+@include icomoon {
+	@extend %icomoon;
+}
+
+// Add custom icomoon classes here
+
+.icon-quote:before {
+	content: "\e625";
+}
+.icon-arrow-up:before {
+	content: "\e624";
+}
+.icon-arrow-down:before {
+	content: "\e600";
+}
+.icon-arrow-right:before {
+	content: "\e601";
+}
+.icon-avatar:before {
+	content: "\e602";
+}
+.icon-badge:before {
+	content: "\e603";
+}
+.icon-bubble:before {
+	content: "\e604";
+}
+.icon-chart:before {
+	content: "\e605";
+}
+.icon-close:before {
+	content: "\e606";
+}
+.icon-cross:before {
+	content: "\e607";
+}
+.icon-desktop:before {
+	content: "\e608";
+}
+.icon-dollar-large:before {
+	content: "\e609";
+}
+.icon-dollar-small:before {
+	content: "\e60a";
+}
+.icon-facebook:before {
+	content: "\e60b";
+}
+.icon-gplus:before {
+	content: "\e60c";
+}
+.icon-heart:before {
+	content: "\e60d";
+}
+.icon-layout:before {
+	content: "\e60e";
+}
+.icon-lightbulb:before {
+	content: "\e60f";
+}
+.icon-magnifier:before {
+	content: "\e610";
+}
+.icon-menu:before {
+	content: "\e611";
+}
+.icon-mobile:before {
+	content: "\e612";
+}
+.icon-paintbrush:before {
+	content: "\e613";
+}
+.icon-pin:before {
+	content: "\e614";
+}
+.icon-pin-down:before {
+	content: "\e615";
+}
+.icon-pinterest:before {
+	content: "\e616";
+}
+.icon-plus:before {
+	content: "\e617";
+}
+.icon-return:before {
+	content: "\e618";
+}
+.icon-speech:before {
+	content: "\e619";
+}
+.icon-speech-alt:before {
+	content: "\e61a";
+}
+.icon-star:before {
+	content: "\e61b";
+}
+.icon-step-pointer:before {
+	content: "\e61c";
+}
+.icon-tablet:before {
+	content: "\e61d";
+}
+.icon-tag:before {
+	content: "\e61e";
+}
+.icon-tick:before {
+	content: "\e61f";
+}
+.icon-triangle-down:before {
+	content: "\e620";
+}
+.icon-triangle-left:before {
+	content: "\e621";
+}
+.icon-triangle-up:before {
+	content: "\e622";
+}
+.icon-twitter:before {
+	content: "\e623";
+}
+
+.icon-cross {
+	background: #fff;
+	border: 1px solid #eaeaea;
+	@include border-radius(50%);
+	color: #666;
+	display: inline-block;
+	font-size: 9px;
+	height: 15px;
+	line-height: 15px;
+	text-align: center;
+	width: 15px;
+}
+
+a {
+	@include hover {
+		> .icon-cross {
+			border-color: darken(#eaeaea, 10%);
+			color: $text-color;
+		}
+	}
+}

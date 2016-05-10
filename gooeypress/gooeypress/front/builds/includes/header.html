@@ -1,0 +1,72 @@
+<div class="header" id="js_header" role="banner">
+	<div class="std_width pos_relative">
+		<h3 class="hidden"><a href="/">{{ siteTitle }}</a></h3>
+		<p id="logo" class="reset"><a href="/"><img src="{{ imgPath }}logo.svg" width="170" height="30" alt="{{ siteTitle }}" onerror="this.src='{{ imgPath }}logo.png'" /></a></p>
+
+		<a href="#js_main_actions" class="icon_link icon_link_menu js_toggler"><span class="icon-menu"></span><span class="hidden">Main Actions</span></a>
+		<a href="#js_search" class="icon_link icon_link_search js_toggler"><span class="icon-magnifier"></span><span class="hidden">Search</span></a>
+
+ 		<form class="search" id="js_search" action="#" method="get" role="search">
+			<fieldset class="no_mb">
+				<legend>Search {{ siteTitle }}</legend>
+				<label for="txtSearch" class="no_mb"><span class="hidden">Search</span><span class="icon-magnifier"></span></label>
+				<input type="search" id="txtSearch" name="search" class="text no_mb" placeholder="Enter Search Term" />
+				<button type="submit" class="btn">Search</button>
+			</fieldset>
+		</form>
+
+		<div class="float_right">
+			<a href="#js_mini_account" class="icon_link icon_link_avatar js_toggler"><span class="icon-avatar"></span><span class="hidden">Account Actions</span></a>
+
+			<div class="mini_account" id="js_mini_account">
+				{{ include('mini-account.html', {"loggedOut": true, "loggedIn": false}) }}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="main_actions" id="js_main_actions" data-toggle-allow-overflow-y="true">
+		<div class="main_actions_inner std_width">
+			<div class="float_left">
+				<a href="#" class="btn btn_subdued btn_refine_categories"><span class="icon-menu"></span> Refine your categories</a>
+
+				<ul class="reset menu main_actions_menu">
+					<li class="dropdown_parent">
+						<a href="#">Genre</a>
+						<ul class="dropdown_menu">
+							<li><a href="#">e-Commerce</a></li>
+							<li><a href="#">Corporate</a></li>
+							<li><a href="#">Blog</a></li>
+							<li><a href="#">Charity</a></li>
+							<li><a href="#">Small Business</a></li>
+						</ul>
+					</li>
+					<li class="dropdown_parent">
+						<a href="#">Style</a>
+						<ul class="dropdown_menu">
+							<li><a href="#">Flat</a></li>
+							<li><a href="#">Skeuomorphic</a></li>
+						</ul>
+					</li>
+					<li class="dropdown_parent">
+						<a href="#">Layout</a>
+						<ul class="dropdown_menu">
+							<li><a href="#">Mobile</a></li>
+							<li><a href="#">Desktop</a></li>
+							<li><a href="#">Desktop &amp; Tablet</a></li>
+							<li><a href="#">Responsive</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+
+			<div class="saved_themes">
+				<h3 class="saved_themes_heading"><span class="icon-pin"></span>Saved <span class="selecive_display_block">Themes</span></h3>
+				<ul class="reset saved_theme_list">
+					<li class="inline_block"><a href="#" class="btn btn_subdued btn_saved_theme"><span class="icon-pin"></span><span class="hidden">Remove</span> Twitcovers <span class="icon-cross"></span></a></li>
+					<li class="inline_block"><a href="#" class="btn btn_subdued btn_saved_theme"><span class="icon-pin"></span><span class="hidden">Remove</span> Twitcovers <span class="icon-cross"></span></a></li>
+					<li class="inline_block"><a href="#" class="btn btn_subdued btn_saved_theme"><span class="icon-pin"></span><span class="hidden">Remove</span> Twitcovers <span class="icon-cross"></span></a></li>
+				</ul>
+			</div>
+		</div>
+</div>

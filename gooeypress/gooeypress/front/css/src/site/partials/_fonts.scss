@@ -1,0 +1,18 @@
+/* --------------------------------------------
+	Font-Face Declarations
+----------------------------------------------- */
+
+/*
+font-family: font-stack;
+*/
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('/front/fonts/icomoon.eot?-j4hnuu');
+	src:url('/front/fonts/icomoon.eot?#iefix-j4hnuu') format('embedded-opentype'),
+		url('/front/fonts/icomoon.woff?-j4hnuu') format('woff'),
+		url('/front/fonts/icomoon.ttf?-j4hnuu') format('truetype'),
+		url('/front/fonts/icomoon.svg?-j4hnuu#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}

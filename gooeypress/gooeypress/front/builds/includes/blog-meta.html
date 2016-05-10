@@ -1,0 +1,23 @@
+<div class="blog_meta">
+	<p class="blog_meta_date"><b>21</b> Jan<span class="hidden">uary</span></p>
+	
+	<div class="blog_meta_main">
+		{{ if list }}
+		<a href="blog_post.html" class="blog_meta_heading_link">
+			<h2 class="h1 blog_meta_heading">Hello World</h3>
+		</a>
+		{{ endif }}
+
+		{{ if primary }}
+			<h1 class="blog_meta_heading">Hello world</h1>
+		{{ endif }}
+
+		<p class="blog_meta_user">Posted by: Admin</p>
+		<dl class="blog_meta_comments_tags">
+			<dt><span class="hidden">Comments</span></dt>
+			<dd><span class="icon-speech"></span> <a href="#comments">132 comments</a></dd>
+			<dt><span class="hidden">Tags</span></dt>
+			<dd><span class="icon-tag"></span> <a href="#" class="blog_meta_tag">Paper</a> <a href="#" class="blog_meta_tag">Scissors</a> <a href="#" class="blog_meta_tag">Rock</a></dd>
+		</dl>
+	</div>
+</div>

@@ -1,0 +1,8 @@
+@include grid((373, 600, 960, 1200, 1400), (25, 33.3333, 50, 100));
+
+@include grid-override(connect, 23px);
+@include grid-override(browse_theme, 50px);
+@include grid-override(theme_detail_share, (44px, 17px));
+@include grid-override(theme_related, 22px);
+
+@include grid-override(advert_box, (0, 0));

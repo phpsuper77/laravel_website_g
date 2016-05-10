@@ -1,0 +1,241 @@
+/* --------------------------------------------
+	Forms
+----------------------------------------------- */
+
+fieldset .description {
+	color: $form-description-color;
+	@include rem(font-size, 13px);
+	font-weight: normal;
+	@include rem(margin-top, 3px);
+}
+
+label, .label, p.legend {
+	@include rem(margin-bottom, $form-margin / 2);
+}
+
+label[disabled] {
+	background: #f7f7f7;
+	color: #bababa;
+	outline: 4px solid #f7f7f7;
+	pointer-events: none;
+}
+
+.text, textarea {
+	@include rem(padding, $form-input-padding-vertical $form-input-padding-horizontal);
+	
+	.vendor-mozilla & {
+	}
+	
+	.ie9 &, .vendor-ie-10 & {
+	}
+}
+
+textarea {
+	resize: vertical;
+}
+
+select {
+	@include rem(padding, $form-input-padding-vertical - 1 $form-input-padding-horizontal - 1 $form-input-padding-vertical - 1 $form-input-padding-horizontal - 3);
+	
+	.vendor-mozilla & {
+		@include rem(padding-top, $form-input-padding-vertical - 2, false);
+	}
+	
+	.ie &, .vendor-ie & {
+		@include rem(padding-bottom, $form-input-padding-vertical - 2);
+		@include rem(padding-top, $form-input-padding-vertical);
+	}
+	
+	.ua-desktop-macintosh.vendor-webkit & {
+		// height of normal inputs in rems
+	}
+}
+
+.ltie8 .rc ul label {
+	margin-top: -18px;
+}
+
+.rc input {
+	@include rem(margin, 5px 0 0 2px);
+	
+	.ie &, .vendor-ie & {
+		@include rem(margin, 1px 0 0 -2px);
+	}
+	
+	.browser-android & {
+		@include rem(margin-top, 2px, false);
+	}
+	
+	.browser-android.ua-android-2 & {
+		@include rem(margin-top, -1px, false);
+	}
+}
+
+.btn, .btn_wrap[data-label], button, [type="submit"] {
+	@include gradient($btn-background-color);
+	border: 1px solid $btn-border-color;
+	@include rem(padding, $form-btn-padding-vertical $form-btn-padding-horizontal);
+	
+	.vendor-mozilla & {
+		@include rem(padding-top, $form-btn-padding-vertical - 1, false);
+	}
+	
+	@include hover {
+		@include gradient($btn-hover-background-color);
+		border-color: $btn-hover-border-color;
+	}
+}
+
+// .btns & .submits will render at different sizes. Modify as appropriate to make them equal
+.btn, .btn_wrap[data-label] {
+	.ie &, .vendor-ie & {
+	}
+	
+	.vendor-mozilla & {
+	}
+	
+	.vendor-webkit & {
+	}
+}
+
+button, [type="submit"] {
+	@include border-radius(6px);
+	font-size: 22px !important;
+	
+	.ie &, .vendor-ie & {
+	}
+	
+	.vendor-mozilla & {
+	}
+	
+	.vendor-webkit & {
+	}
+}
+
+.btn_secondary{
+	@include gradient($btn-secondary-background-color);
+	border-color: $btn-secondary-border-color;
+	color: $btn-secondary-text-color !important;
+    font-size:20px !important;
+	
+	@include hover {
+		@include gradient($btn-secondary-hover-background-color);
+		border-color: $btn-secondary-hover-border-color;
+	}
+}
+
+.btn_small{
+    font-size:1rem !important;
+    padding:0.3rem 0.5rem;
+}
+.btn_tiny{
+    font-size:0.75rem !important;
+    padding:0.3rem 0.5rem;
+}
+
+.btn_subdued {
+	@include gradient($btn-subdued-background-color);
+	border-color: $btn-subdued-border-color;
+	color: $btn-subdued-text-color !important;
+	
+	@include hover {
+		@include gradient($btn-subdued-hover-background-color);
+		border-color: $btn-subdued-hover-border-color;
+	}
+}
+
+.btn[disabled] {
+	background: $btn-disabled-color !important;
+	border-color: $btn-disabled-color !important;
+	cursor: default;
+}
+
+/* --------------------------------------------
+	Ratings Radios
+----------------------------------------------- */
+
+.form_rating {
+	direction: rtl;
+	display: inline-block;
+	line-height: 1;
+	margin-bottom: 0;
+	
+	.vendor-webkit & {
+		&:not(:checked) {
+			input {
+				display: none;
+			}
+		}
+	}
+	
+	&:not(:checked) {
+		input {
+			-moz-appearance: scrollbartrack-vertical;
+			border: none;
+			float: none;
+			height: 0 !important;
+			line-height: 0;
+			margin: 0;
+			overflow: hidden;
+			position: absolute;
+			width: 0 !important;
+		}
+		
+		label {
+			display: inline-block;
+			font-size: 15px;
+			height: 15px;
+			overflow: hidden;
+			width: 15px;
+			
+			&:last-child {
+				padding-right: 0;
+			}
+			
+			.rating_rated {
+				display: none;
+			}
+			
+			.rating_unrated {
+				display: block;
+			}
+		}
+	}
+	
+	input:checked ~ label {
+		.rating_rated {
+			color: #f1c40f;
+			display: block !important;
+		}
+		
+		.rating_unrated {
+			display: none !important;
+		}
+	}
+	
+	label {
+		margin: 0 0 0 -3px;
+	}
+}
+
+/*--------------------------------------------
+ Theme advert form styles (on gray background)
+---------------------------------------------*/
+html:not(.browser-android) fieldset.gray select{
+    background:#fff;
+}
+fieldset.gray{
+    .text, textarea{
+        background:#fff;
+    }
+    .f_row label, .f_row .label, p.legend{
+        @include media-query($form-bp){
+            text-align:right;
+        }
+        text-transform:uppercase;
+    }
+    .f_row .description{
+        font-style:italic;
+        color:#999;
+    }
+}

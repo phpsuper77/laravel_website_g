@@ -1,0 +1,1 @@
+sass --style compressed --watch css/src:css/site -r ./sass/functions/base64-encode.rb

@@ -1,0 +1,37 @@
+{{ var $title: "Blog List" }}
+{{ var $currentPath: "blog_list.html" }}
+
+{{ include('_head.html', {"title": "$title", "bodyClass": "no_col_1 no_col_3 heading_inside_content"}) }}
+
+{{ include('header.html') }}
+
+<div id="content">
+	<div id="content_inner" class="std_width">
+		
+		<div id="col_2" role="main">
+			
+			{{ include('related-themes.html', {"class": "blog_related"}) }}
+
+			<div class="blog_main">
+				
+				<ul class="list_style_none">
+					{{ include('blog-list-item.html') }}
+					{{ include('blog-list-item.html') }}
+					{{ include('blog-list-item.html') }}
+					{{ include('blog-list-item.html') }}
+					{{ include('blog-list-item.html') }}
+				</ul>
+				
+				{{ include('pagination.html') }}
+				
+			</div>
+
+			{{ include('blog-links.html') }}
+
+		</div>
+	</div>
+</div>
+
+{{ include('footer.html') }}
+
+{{ include('_foot.html') }}

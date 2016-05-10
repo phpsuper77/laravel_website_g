@@ -1,0 +1,261 @@
+/* --------------------------------------------
+	Simple Customisations
+----------------------------------------------- */
+body{
+  overflow: hidden !important;
+}
+
+a {
+	text-decoration: underline;
+	
+	&:visited {
+		text-decoration: underline;
+	}
+	
+	@include hover {
+		text-decoration: none;
+	}
+}
+
+.feature {
+	text-decoration: none;
+	
+	&:after {
+		@include triangle;
+		margin-left: em(10px);
+	}
+	
+	&:visited:after {
+		border-left-color: $std-visited-color;
+	}
+	
+	@include hover(after) {
+		border-left-color: $std-hover-color;
+	}
+}
+
+sub, sup {
+	font-size: em(12px, $std-font-size);
+	
+	.ie &, .vendor-ie & {
+		font-size: em(14px, $std-font-size);
+	}
+}
+
+sub {
+	bottom: em(-3px);
+}
+
+sup {
+	top: em(-5px);
+}
+
+blockquote {
+	border-left: none;
+	margin: $std-margin * 2 auto;
+	max-width: 445px;
+	padding: 20px 35px 20px 70px;
+	position: relative;
+	
+	&:before {
+		@extend %icomoon;
+		@extend .icon-quote:before;
+		color: #939393;
+		font-size: 22px;
+		left: 23px;
+		position: absolute;
+		top: 26px;
+	}
+}
+
+.intro {
+	font-size: 19px;
+}
+
+/* --------------------------------------------
+	Headings
+----------------------------------------------- */
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+	font-family: $heading-font-family;
+	font-weight: normal;
+	line-height: normal;
+	@include rem(margin, $std-margin * 2 0 $std-margin / 2);
+	
+	.no-fontface & {
+		font-family: $heading-no-fontface-font-family;
+	}
+}
+
+h1, .h1 {
+	@include media-query($tablet-bp) {
+		@include rem(font-size, $heading1-font-size + 10px);
+	}
+}
+
+h2, .h2 {
+	@include media-query($tablet-bp) {
+		@include rem(font-size, $heading2-font-size + 10px);
+	}
+}
+
+h3, .h3 {
+	@include media-query($tablet-bp) {
+		@include rem(font-size, $heading3-font-size + 10px);
+	}
+}
+
+h4, .h4 {
+	@include media-query($tablet-bp) {
+		@include rem(font-size, $heading4-font-size + 7px);
+	}
+}
+
+h5, .h5 {
+	@include media-query($tablet-bp) {
+		@include rem(font-size, $heading5-font-size + 7px);
+	}
+}
+
+h6, .h6 {
+	@include media-query($tablet-bp) {
+		@include rem(font-size, $heading6-font-size + 7px);
+	}
+}
+
+.h_alt {
+	color: $red;
+}
+
+.page_title_primary {
+	@include hidden;
+	
+	@include media-query($tablet-bp) {
+		@include hidden(false);
+		padding-bottom: 4px;
+	}
+}
+
+.page_title_duplicate, .page_sub_title {
+	border-bottom: 1px solid #eaeaea;
+	margin-bottom: 12px;
+	padding-bottom: 10px;
+}
+
+.page_title_duplicate {
+	@include media-query($tablet-bp) {
+		@include hidden;
+	}
+}
+
+.page_sub_title {
+	margin-bottom: 25px;
+	
+	@include media-query($tablet-bp) {
+		margin-bottom: 38px;
+		padding-bottom: 16px;
+	}
+}
+
+.page_aside_title {
+	border-bottom: 1px solid #eaeaea;
+	margin-bottom: 12px;
+	padding-bottom: 10px;
+}
+
+/* --------------------------------------------
+	Lists
+----------------------------------------------- */
+
+ul > li {
+	&:before {
+		background: $text-color;
+		@include border-radius(50%);
+		height: 5px;
+		left: -18px;
+		@include rem(top, $list-bullet-top);
+		width: 5px;
+	}
+}
+
+/* --------------------------------------------
+	Tables
+----------------------------------------------- */
+
+td, th {
+	background: #fff;
+	border: solid darken($std-table-color, 5%);
+	border-width: 1px 0;
+	@include rem(padding, 15px 20px !important);
+	text-align: left;
+	text-shadow: 0 1px 1px #fff;
+	
+	tr > &:first-child {
+		border-left-width: 1px;
+	}
+	
+	tr > &:last-child {
+		border-right-width: 1px;
+	}
+}
+
+thead, tfoot {
+	@include box-shadow(0 1px 2px rgba(0,0,0,0.15));
+	
+	th {
+		/* @include gradient((lighten($std-table-color, 10%), 0%, darken($std-table-color, 1%), 100%)); */
+        background: darken($std-table-color, 1%);
+		font-weight: bold;
+	}
+}
+
+tfoot {
+	@include box-shadow(none);
+}
+
+tr:nth-child(even) {
+	& td, & th {
+		background: $std-table-color;
+	}
+}
+
+/* --------------------------------------------
+	Colors
+----------------------------------------------- */
+
+.blue {
+	color: $blue;
+}
+
+.blue_bg {
+	background-color: $blue;
+	color: #fff;
+}
+
+.green {
+	color: $green;
+}
+
+.green_bg {
+	background-color: $green;
+	color: #fff;
+}
+
+.grey {
+	color: $grey;
+}
+
+.grey_bg {
+	background-color: $grey;
+	color: #fff;
+}
+
+.red {
+	color: $red;
+}
+
+.red_bg {
+	background-color: $red;
+	color: #fff;
+}

@@ -1,0 +1,164 @@
+{
+    "g": {
+        "ycdn": {
+            "components": [
+                "www.google.com.sg%3A%204%20components%2C%20180.6K%20(45.0K%20GZip)",
+                "ssl.gstatic.com%3A%201%20component%2C%209.7K"
+            ],
+            "message": "There are 5 static components that are not on CDN. <p>You can specify CDN hostnames in your preferences. See <a href=\"https://github.com/marcelduran/yslow/wiki/FAQ#wiki-faq_cdn\">YSlow FAQ</a> for details.</p>",
+            "score": 50
+        },
+        "ycompress": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "ycookiefree": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "ycsstop": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "ydns": {
+            "components": [
+                "www.google.com.sg%3A%206%20components%2C%20240.7K%20(63.2K%20GZip)",
+                "ssl.gstatic.com%3A%201%20component%2C%209.7K"
+            ],
+            "message": "",
+            "score": 100
+        },
+        "ydupes": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "yemptysrc": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "yetags": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "yexpires": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "yexpressions": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "yexternal": {
+            "components": [
+                "There%20is%20a%20total%20of%204%20inline%20css",
+                "There%20is%20a%20total%20of%209%20inline%20scripts"
+            ],
+            "message": "Only consider this if your property is a common user home page."
+        },
+        "yfavicon": {
+            "components": [],
+            "message": "Favicon is more than 2000 bytes",
+            "score": 95
+        },
+        "yimgnoscale": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "yjsbottom": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "ymincookie": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "ymindom": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "yminify": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "yno404": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "ynofilter": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "ynumreq": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "yredirects": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "yxhr": {
+            "components": [],
+            "message": "",
+            "score": 100
+        },
+        "yxhrmethod": {
+            "components": [],
+            "message": "",
+            "score": 100
+        }
+    },
+    "i": "ydefault",
+    "lt": 325,
+    "o": 97,
+    "r": 7,
+    "r_c": 1,
+    "stats": {
+        "cssimage": {
+            "r": 3,
+            "w": 53603
+        },
+        "doc": {
+            "r": 1,
+            "w": 18225
+        },
+        "favicon": {
+            "r": 1,
+            "w": -1
+        },
+        "image": {
+            "r": 1,
+            "w": 1834
+        },
+        "js": {
+            "r": 1,
+            "w": 45006
+        }
+    },
+    "stats_c": {
+        "doc": {
+            "r": 1,
+            "w": 18225
+        }
+    },
+    "u": "http%3A%2F%2Fwww.google.com.sg%2F%3Fgfe_rd%3Dcr%26ei%3D1JGnVIjpOsiGoAPP_YLQCg",
+    "v": "3.1.8",
+    "w": 118667,
+    "w_c": 18225
+}

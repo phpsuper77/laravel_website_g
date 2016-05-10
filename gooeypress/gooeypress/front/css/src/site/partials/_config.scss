@@ -1,0 +1,166 @@
+// --------------------------------------------
+//	Colours
+// --------------------------------------------
+
+$default: #333;
+$blue: #399add;
+$green: #33cd74;
+$grey: #808b8d;
+$grey-light: #f8f8f8;
+$grey-mid: #888;
+$red: #e24f3d;
+$green-bright: #2fcc71;
+
+$text-color: $default;
+$std-color: $text-color;
+$sub-color: $grey;
+$alt-color: $red;
+$hr-color: #b8b7b7;
+$blockquote-bg-color: #f7f7f7;
+
+$std-link-color: $red;
+$std-hover-color: darken($red, 10%);
+$std-visited-color: mix(#551a8b, $red, 60%);
+
+$std-table-color: #f8f8f8;
+
+$form-input-color: $text-color;
+$form-input-background-color: #f7f7f7;
+$form-input-border-color: #e8e8e8;
+$form-input-hover-color: #ffffe5;
+$form-input-focus-color: #fbfbdc;
+$form-input-boxshadow-color: rgba(#52a8ec, 0.5);
+$form-input-error-color: #ee8d8d;
+$form-placeholder-color: #bbb;
+$form-placeholder-text-transform: null;
+$form-description-color: #bbb;
+
+$btn-background-color: $red;
+$btn-border-color: $red;
+$btn-text-color: #fff;
+$btn-hover-background-color: darken($btn-background-color, 10%);
+$btn-hover-border-color: darken($btn-border-color, 10%);
+$btn-hover-text-color: $btn-text-color;
+
+$btn-subdued-background-color: $grey-light;
+$btn-subdued-border-color: #d2d2d8;
+$btn-subdued-text-color: $text-color;
+$btn-subdued-hover-background-color: darken($btn-subdued-background-color, 10%);
+$btn-subdued-hover-border-color: darken($btn-subdued-border-color, 10%);
+
+$btn-secondary-background-color: $green-bright;
+$btn-secondary-border-color: darken($btn-secondary-background-color, 10%);
+$btn-secondary-text-color: $btn-text-color;
+$btn-secondary-hover-background-color: darken($btn-secondary-background-color, 10%);
+$btn-secondary-hover-border-color: darken($btn-secondary-border-color, 10%);
+
+$btn-disabled-color: #d6d6d6;
+
+$error-border-color: #ddd;
+
+// --------------------------------------------
+//	Font Families
+// --------------------------------------------
+
+$std-font-family: 'Open Sans', sans-serif;
+$heading-font-family: $std-font-family;
+$heading-no-fontface-font-family: null;
+$quote-font-family: $std-font-family;
+
+// --------------------------------------------
+//	Font Sizes
+// --------------------------------------------
+
+$std-font-size: 15px;
+$heading1-font-size: 21px;
+$heading2-font-size: 19px;
+$heading3-font-size: 15px;
+$heading4-font-size: 14px;
+$heading5-font-size: 13px;
+$heading6-font-size: 12px;
+
+// --------------------------------------------
+//	Line Heights
+// --------------------------------------------
+
+$std-line-height: 22px;
+
+// --------------------------------------------
+//	Margins
+// --------------------------------------------
+
+$std-margin: 14px;
+$std-gutter: 40px;
+$line-height-margin: 3px;
+$std-whitespace-margin: -4px;
+
+$form-margin: 25px;
+$form-label-margin: 3%;
+
+$list-margin-left: 40px;
+$list-item-margin-denominator: 2;
+
+// --------------------------------------------
+//	Paddings
+// --------------------------------------------
+
+$form-input-padding-vertical: 4px;
+$form-input-padding-horizontal: 4px;
+$form-btn-padding-vertical: 7px;
+$form-btn-padding-horizontal: 14px;
+
+$form-rc-label-indent: 28px;
+
+// --------------------------------------------
+//	Positions
+// --------------------------------------------
+
+$list-bullet-top: 7px;
+
+$form-labels-aligned-right: false;
+$form-required-indicator-right: -5px;
+
+// --------------------------------------------
+//	Sizes
+// --------------------------------------------
+
+$form-label-width: 20%;
+$form-input-width-adjuster: -0%;
+
+$form-smaller-input-width: 16.6666%;
+$form-small-input-width: 33.3333%;
+$form-medium-input-width: 50%;
+$form-large-input-width: 66.6666%;
+$form-larger-input-width: 83.3333%;
+
+$text-area-minheight: 155px;
+
+// --------------------------------------------
+//	Other
+// --------------------------------------------
+
+$form-input-border-width: 1px;
+$form-input-border-radius: 3px;
+$btn-border-radius: 3px;
+
+$default-pie-path: '/css/PIE.htc';
+
+// --------------------------------------------
+//	Breakpoints
+// --------------------------------------------
+
+$is-responsive: true;
+
+$site-width: 1400px;
+$desktop-bp: $site-width;
+
+$tablet-bp: 768px;
+
+$float-bp: 464px;
+$form-bp: 600px; // Set to 0 to have "block-level" form fields always
+
+@if ($is-responsive == false) {
+	$float-bp: 1px;
+	$form-bp: 1px;
+	$feature-bp: 1px;
+}

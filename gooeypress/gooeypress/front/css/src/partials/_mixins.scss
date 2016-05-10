@@ -1,0 +1,1184 @@
+// --------------------------------------------
+//	Default Variables
+// --------------------------------------------
+
+$min: unquote('min-width:');
+$max: unquote('max-width:');
+$min-h: unquote('min-height:');
+$max-h: unquote('max-height:');
+
+$use-background-property: true;
+$use-background-fallback: true;
+$use-pie-background: true;
+$use-ltie9-mq-fallbacks: true;
+
+$browser-default-font-size: 16px;
+$base-font-size: 16px !default;
+$rem-with-px-fallback: true !default;
+
+// --------------------------------------------
+//	Helper Functions
+// --------------------------------------------
+
+@function strip-units($number) {
+	@return $number / ($number * 0 + 1);
+}
+
+@function em($pixels, $context: 16, $unitless: false) {
+	@if ($unitless == false) {
+		@return #{strip-units($pixels) / strip-units($context)}em;
+	}
+	@else {
+		@return #{strip-units($pixels) / strip-units($context)};
+	}
+}
+
+@function percent($pixels, $context: $site-width) {
+	@return percentage($pixels / $context);
+}
+
+// @private Default font-size for all browsers
+// Convert any CSS <length> or <percentage> value to any other.
+@function convert-length($length, $to-unit, $from-context: $base-font-size, $to-context: $from-context) {
+	$from-unit: unit($length);
+
+	// Optimize for cases where from and to may accidentally be the same.
+	@if $from-unit == $to-unit { @return $length; }
+	@if unit($from-context) != 'px' { @warn "Paremeter $from-context must resolve to a value in pixel units."; }
+	@if unit($to-context) != 'px' { @warn "Parameter $to-context must resolve to a value in pixel units."; }
+
+	// Fixed ratios
+	// https://developer.mozilla.org/en/CSS/length
+	// http://dev.w3.org/csswg/css3-values/#absolute-lengths
+	$px-per-in: 96px / 1in;
+	$px-per-mm: 96px / 25.4mm;
+	$px-per-cm: 96px / 2.54cm;
+	$px-per-pt: 4px / 3pt;
+	$px-per-pc: 16px / 1pc;
+
+	// Variables to store actual convesion ratios
+	$px-per-from-unit: 1;
+	$px-per-to-unit: 1;
+
+	@if $from-unit != 'px' {
+		@if	  $from-unit == 'em'  { $px-per-from-unit: $from-context / 1em }
+		@else if $from-unit == 'rem' { $px-per-from-unit: $base-font-size / 1rem }
+		@else if $from-unit == '%'   { $px-per-from-unit: $from-context / 100% }
+		@else if $from-unit == 'ex'  { $px-per-from-unit: $from-context / 2ex }
+		@else if $from-unit == 'in'  { $px-per-from-unit: $px-per-in }
+		@else if $from-unit == 'mm'  { $px-per-from-unit: $px-per-mm }
+		@else if $from-unit == 'cm'  { $px-per-from-unit: $px-per-cm }
+		@else if $from-unit == 'pt'  { $px-per-from-unit: $px-per-pt }
+		@else if $from-unit == 'pc'  { $px-per-from-unit: $px-per-pc }
+		@else if $to-unit == 'ch' or $to-unit == 'vw' or $to-unit == 'vh' or $to-unit == 'vmin' {
+			@warn "#{$from-unit} units can't be reliably converted; Returning original value.";
+			@return $length;
+		}
+		@else {
+			@warn "#{$from-unit} is an unknown length unit. Returning original value.";
+			@return $length;
+		}
+	}
+
+	@if $to-unit != 'px' {
+		@if	  $to-unit == 'em'  { $px-per-to-unit: $to-context / 1em }
+		@else if $to-unit == 'rem' { $px-per-to-unit: $base-font-size / 1rem }
+		@else if $to-unit == '%'   { $px-per-to-unit: $to-context / 100% }
+		@else if $to-unit == 'ex'  { $px-per-to-unit: $to-context / 2ex }
+		@else if $to-unit == 'in'  { $px-per-to-unit: $px-per-in }
+		@else if $to-unit == 'mm'  { $px-per-to-unit: $px-per-mm }
+		@else if $to-unit == 'cm'  { $px-per-to-unit: $px-per-cm }
+		@else if $to-unit == 'pt'  { $px-per-to-unit: $px-per-pt }
+		@else if $to-unit == 'pc'  { $px-per-to-unit: $px-per-px }
+		@else if $to-unit == 'ch' or $to-unit == 'vw' or $to-unit == 'vh' or $to-unit == 'vmin' {
+			@warn "#{$to-unit} units can't be reliably converted; Returning original value.";
+			@return $length;
+		}
+		@else {
+			@warn "#{$to-unit} is an unknown length unit. Returning original value.";
+			@return $length;
+		}
+	}
+	@return $length * $px-per-from-unit / $px-per-to-unit;
+}
+
+// --------------------------------------------
+//	Class Mixins
+// --------------------------------------------
+
+@mixin classquery($class-name: default, $output-ltie9-rule: true) {
+	@if ($output-ltie9-rule == true) {
+		.classquery-#{$class-name}, .ltie9 [data-classquery*=".classquery-#{$class-name}"] {
+			@content;
+		}
+	}
+	@else {
+		.classquery-#{$class-name} {
+			@content;
+		}
+	}
+}
+
+@mixin clearfix {
+	min-height: 0;
+
+	&:after {
+		clear: both;
+		content: '.';
+		display: block;
+		height: 0;
+		visibility: hidden;
+	}
+}
+
+@mixin hidden($hide: true) {
+	@if ($hide == false) {
+		height: auto;
+		position: static;
+		width: auto;
+	}
+	@else {
+		height: 1px;
+		left: -999em;
+		overflow: hidden;
+		position: absolute;
+		top: -999em;
+		width: 1px;
+	}
+}
+
+@mixin hide-text($display: false, $width: false, $height: false) {
+	@if ($display != false) {
+		display: $display;
+	}
+	
+	overflow: hidden;
+	text-indent: -999em;
+	
+	@if ($width != false) {
+		width: $width;
+	}
+	
+	@if ($height != false) {
+		height: $height;
+	}
+}
+
+@mixin horizontal($vertical-align: top, $width: 100%) {
+	display: table;
+	width: $width;
+	
+	> li {
+		display: table-cell;
+		vertical-align: $vertical-align;
+		
+		> a {
+			text-align: center;
+		}
+	}
+	
+	.ltie8 & {
+		@include clearfix;
+		display: block;
+		
+		> li {
+			float: left;
+		}
+	}
+}
+
+@mixin icomoon {
+	[class^="icon-"], [class*=" icon-"] {
+		@content;
+	}
+}
+
+@mixin icon($name) {
+	.icon-#{$name} {
+		&:before {
+			@content;
+		}
+	}
+}
+
+@mixin no-fontface {
+	.no-fontface &, .ua-windows_phone-7 & {
+		@content;
+	}
+}
+
+// --------------------------------------------
+//	Media Query Mixins
+// --------------------------------------------
+
+@mixin media-query($value, $ltie9: $use-ltie9-mq-fallbacks, $operator: $min, $px: false) {
+	@if ($px == false) {
+		@media (#{$operator} #{em($value)}) {
+			@content;
+		}
+	}
+	@else {
+		@media (#{$operator} #{strip-units($value)}px) {
+			@content;
+		}
+	}
+	
+	@if ($ltie9 == true) {
+		@if ($operator == $max and $value < $site-width) {
+			// Using max-width media query that's smaller than $site-width: do nothing
+		}
+		@else if ($operator == $min and $value > $site-width) {
+			// Using min-width media query that's larger than $site-width: do nothing
+		}
+		@else {
+			.ltie9 & {
+				@content;
+			}
+		}
+	}
+}
+
+@mixin media-query-and($first-value, $second-value, $ltie9: $use-ltie9-mq-fallbacks, $first-operator: $min, $second-operator: $max, $px: false) {
+	@if ($px == false) {
+		@media (#{$first-operator} #{em($first-value)}) and (#{$second-operator} #{em($second-value)}) {
+			@content;
+		}
+	}
+	@else {
+		@media (#{$first-operator} #{strip-units($first-value)}px) and (#{$second-operator} #{strip-units($second-value)}px) {
+			@content;
+		}
+	}
+	
+	@if ($ltie9 == true and $second-value >= $site-width and $first-operator == $min and $second-operator == $max) {
+		.ltie9 & {
+			@content;
+		}
+	}
+}
+
+@mixin media-query-retina {
+	@media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6/2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+		@content;
+	}
+}
+
+// --------------------------------------------
+//	Functional Mixins
+// --------------------------------------------
+
+@mixin calc($property, $expression, $fallback: false) {
+	@if ($fallback != false) {
+		#{$property}: #{$fallback};
+	}
+	
+	#{$property}: -moz-calc(#{$expression});
+	#{$property}: -webkit-calc(#{$expression});
+	#{$property}: calc(#{$expression});
+}
+
+@mixin gradient($nodes: (#f6f8f9, 0%, #e5ebee, 50%, #d7dee3, 50%, #f2f5f7, 100%), $direction: 'to bottom', $repeating: false) {
+	$fallback: '';
+	$background: background;
+	$lgy-direction: '';
+	$std-direction: '';
+	$x1: '';
+	$x2: '';
+	$y1: '';
+	$y2: '';
+	$css: '';
+	$svg-nodes: '';
+	$x: 0;
+	
+	@if ($direction == 'to bottom' or $direction == 'top' or $direction == '180deg' or $direction == 180deg) {
+		$std-direction: to bottom;
+		$lgy-direction: top;
+		$x1: 0%;
+		$y1: 0%;
+		$x2: 0%;
+		$y2: 100%;
+	}
+	@else if ($direction == 'to top' or $direction == 'bottom' or $direction == '0deg' or $direction == 0deg) {
+		$std-direction: to top;
+		$lgy-direction: bottom;
+		$x1: 100%;
+		$y1: 100%;
+		$x2: 100%;
+		$y2: 0%;
+	}
+	@else if ($direction == 'to left' or $direction == 'right' or $direction == '270deg' or $direction == 270deg) {
+		$std-direction: to left;
+		$lgy-direction: right;
+		$x1: 100%;
+		$y1: 100%;
+		$x2: 0%;
+		$y2: 100%;
+	}
+	@else if ($direction == 'to right' or $direction == 'left' or $direction == '90deg' or $direction == 90deg) {
+		$std-direction: to right;
+		$lgy-direction: left;
+		$x1: 0%;
+		$y1: 0%;
+		$x2: 100%;
+		$y2: 0%;
+	}
+	@else {
+		$std-direction: $direction;
+		$lgy-direction: 90 - $direction;
+		
+		@if ($direction == 10deg) {
+			$x1: 0%;
+			$y1: 100%;
+			$x2: 100%;
+			$y2: 0%;
+		}
+		@else if ($direction == 45deg) {
+			$x1: 0%;
+			$y1: 45%;
+			$x2: 100%;
+			$y2: 0%;
+		}
+		@else if ($direction == 135deg) {
+			$x1: 0%;
+			$y1: 0%;
+			$x2: 100%;
+			$y2: 45%;
+		}
+		@else if ($direction == 170deg) {
+			$x1: 0%;
+			$y1: 0%;
+			$x2: 100%;
+			$y2: 100%;
+		}
+		@else if ($direction == 190deg) {
+			$x1: 100%;
+			$y1: 0%;
+			$x2: 0%;
+			$y2: 100%;
+		}
+		@else if ($direction == 225deg) {
+			$x1: 100%;
+			$y1: 0%;
+			$x2: 0%;
+			$y2: 45%;
+		}
+		@else if ($direction == 315deg) {
+			$x1: 100%;
+			$y1: 45%;
+			$x2: 0%;
+			$y2: 0%;
+		}
+		@else if ($direction == 350deg) {
+			$x1: 100%;
+			$y1: 100%;
+			$x2: 0%;
+			$y2: 0%;
+		}
+		@else {
+			$x1: 0%;
+			$y1: 0%;
+			$x2: 0%;
+			$y2: 100%;
+		}
+	}
+	
+	@if (length($nodes) > 1) {
+		@for $i from 0 to length($nodes) {
+			@if ($i % 2 == 0) {
+				$css: $css + ', ' + nth($nodes, ($i + 1));
+				$svg-nodes: $svg-nodes + '<stop stop-color="' + nth($nodes, ($i + 1)) + '"';
+			}
+			@else {
+				$css: $css + ' ' + nth($nodes, ($i + 1));
+				$svg-nodes: $svg-nodes + ' offset="' + strip-units(nth($nodes, ($i + 1)))/100 + '" />';
+			}
+			$x: $i;
+		}
+			
+		$fallback: nth($nodes, $x);
+		$css: unquote($css);
+		$svg: '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1 1" preserveAspectRatio="none"><linearGradient id="g522" gradientUnits="userSpaceOnUse" x1="' + $x1 + '" y1="' + $y1 + '" x2="' + $x2 + '" y2="' + $y2 + '">' + $svg-nodes + '</linearGradient><rect x="0" y="0" width="1" height="1" fill="url(#g522)" /></svg>';
+		
+		@if ($use-background-property == false) {
+			$background: background-image;
+		}
+		
+		@if ($use-background-fallback == true) {
+			@if ($use-background-property == false) {
+				background-color: $fallback;
+			}
+			@else {
+				background: $fallback;
+			}
+		}
+		
+		@if ($repeating == false) {
+			background-image: url('data:image/svg+xml;base64,' + base64Encode($svg));
+			#{$background}: -moz-linear-gradient($lgy-direction $css);
+			#{$background}: -webkit-linear-gradient($lgy-direction $css);
+			#{$background}: linear-gradient($std-direction $css);
+			@if ($use-pie-background == true) {
+				-pie-background: linear-gradient($lgy-direction $css);
+			}
+		}
+		@else {
+			#{$background}: -moz-linear-gradient($lgy-direction $css);
+			#{$background}: -webkit-repeating-linear-gradient($lgy-direction $css);
+			#{$background}: repeating-linear-gradient($std-direction $css);
+		}
+	}
+	@else {
+		@if ($use-background-property == false) {
+			$background-color: $nodes;
+		}
+		@else {
+			background: $nodes;
+		}
+	}
+}
+
+@mixin _grid-clearing($pc) {
+	$fraction: 100 / $pc;
+	
+	@if ((floor($pc) == 33) or (round($fraction) == $fraction and ($fraction > 1 and $fraction < 6))) {
+		&:nth-child(n) {
+			clear: none;
+		}
+		
+		@if (floor($pc) == 33) {
+			&:nth-child(3n+4) {
+				clear: both;
+			}
+		}
+		@else {
+			&:nth-child(#{$fraction}n+#{1 + $fraction}) {
+				clear: both;
+			}
+		}
+	}
+}
+
+@mixin grid($breakpoints: (480, 600, 768, 960), $percentages: (10, 20, 25, 30, 33.3333, 40, 50, 60, 66.6666, 70, 75, 80, 90, 100), $float-classes: false) {
+	$bp: '';
+	$pc: '';
+	
+	.grid_container {
+		@extend %clearfix;
+		list-style: none;
+		margin-bottom: 0;
+		margin-left: -$std-gutter;
+	}
+	
+	.grid_item {
+		@include box-sizing;
+		float: left;
+		margin-bottom: $std-gutter;
+		padding-left: $std-gutter;
+		width: 100%;
+	}
+	
+	@for $j from 0 to length($percentages) {
+		$pc: nth($percentages, $j + 1);
+		
+		.w#{floor($pc)} {
+			width: percentage($pc / 100);
+
+			
+			@include _grid-clearing($pc);
+		}
+	}
+	
+	.clear:nth-child(n) {
+		clear: both;
+	}
+	
+	.unclear:nth-child(n) {
+		clear: none;
+	}
+	
+	.no_mb {
+		margin-bottom: 0;
+	}
+	
+	@if ($float-classes == true) {
+		.float_left {
+			float: left;
+		}
+		
+		.float_right {
+			float: right;
+		}
+	}
+	
+	@if ($is-responsive == true) {
+		@for $i from 0 to length($breakpoints) {
+			$bp: nth($breakpoints, $i + 1);
+			
+			@for $j from 0 to length($percentages) {
+				$pc: nth($percentages, $j + 1);
+				
+				.w#{floor($pc)}_at_#{$bp} {
+					@include media-query($bp) {
+						width: percentage($pc / 100);
+						
+						@include _grid-clearing($pc);
+					}
+				}
+				
+				@if ($j == length($percentages) - 1) {
+					.clear_at_#{$bp}:nth-child(n) {
+						@include media-query($bp) {
+							clear: both;
+						}
+					}
+					
+					.unclear_at_#{$bp}:nth-child(n) {
+						@include media-query($bp) {
+							clear: none;
+						}
+					}
+					
+					.no_mb_at_#{$bp} {
+						@include media-query($bp) {
+							margin-bottom: 0;
+						}
+					}
+					
+					@if ($float-classes == true) {
+						.float_left_at_#{$bp} {
+							@include media-query($bp) {
+								float: left;
+							}
+						}
+						
+						.float_right_at_#{$bp} {
+							@include media-query($bp) {
+								float: right;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin grid-override($name, $gutter) {
+	$gutter-left: $gutter;
+	$gutter-bottom: $gutter;
+	
+	@if (type-of($gutter) == 'list') {
+		$gutter-left: nth($gutter, 1);
+		$gutter-bottom: nth($gutter, 2);
+	}
+	
+	.#{$name}_grid_container {
+		margin-left: -$gutter-left;
+	}
+
+	.#{$name}_grid_item {
+		margin-bottom: $gutter-bottom;
+		padding-left: $gutter-left;
+	}
+}
+
+@mixin hover($pseudo: false) {
+	@if ($pseudo) {
+		@if type-of($pseudo) == 'list' {
+			@for $i from 0 to length($pseudo) {
+				 &:hover:#{nth($pseudo, ($i + 1))}, &:focus:#{nth($pseudo, ($i + 1))} {
+					@content;
+				}
+			}
+		}
+		@else {
+			&:hover:#{$pseudo}, &:focus:#{$pseudo} {
+				@content;
+			}
+		}
+	}
+	@else {
+		&:hover, &:focus {
+			@content;
+		}
+	}
+}
+
+@mixin nth-child($an: 2n, $sibling: '*', $count: 15) {
+	$index: '';
+	$n: false;
+	$selector: '';
+	$modifier: 0;
+	
+	@if (type-of($an) == list) {
+		$index: nth($an, 1);
+		$modifier: nth($an, 2);
+	}
+	@else {
+		$index: $an;
+	}
+	
+	@if ($index == 'even' or $index == even) {
+		$index: 2n;
+	}
+	
+	@if ($index == 'odd' or $index == odd) {
+		$index: 2n;
+		$modifier: 1;
+	}
+	
+	@if (unit($index) == 'n') {
+		$index: strip-units($index);
+		$n: true;
+	}
+	
+	@if ($modifier < 0) {
+		@if (abs($modifier) > $index){
+			$modifier: -(abs($modifier) % floor($index));
+		}
+		$modifier: $modifier + floor($index);
+	}
+	
+	@if ($index > 0) {
+		@if ($n == false) {
+			$count: 1;
+		}
+		
+		@if ($index == 1) {
+			$selector: '&:first-child';
+		}
+		
+		@if ($modifier > 1) {
+			@for $j from 0 to $modifier - 1 {
+				$selector: $selector + '+ ' + $sibling;
+			}
+			$selector: $selector + ',';
+		}
+		
+		@for $i from 1 to $count + 1 {
+			@if ($i > 1) {
+				$selector: $selector + ', ';
+			}
+			@for $x from (1 - $modifier) to $index * $i {
+				$selector: $selector + '+ ' + $sibling;
+			}
+		}
+	}
+	
+	@if ($index > 0) {
+		@if ($modifier == 1) {
+			@content;
+		}
+		
+		#{$selector} {
+			@content;
+		}
+	}
+}
+
+@mixin placeholder($color: $form-placeholder-color, $text-transform: $form-placeholder-text-transform) {
+	:-moz-placeholder {
+		color: $color;
+		text-transform: $text-transform;
+	}
+	
+	::-moz-placeholder {
+		color: $color;
+		text-transform: $text-transform;
+	}
+	
+	:-ms-input-placeholder {
+		color: $color;
+		text-transform: $text-transform;
+	}
+	
+	::-webkit-input-placeholder {
+		color: $color;
+		text-transform: $text-transform;
+	}
+	
+	input.placeholder, textarea.placeholder {
+		color: $color;
+		text-transform: $text-transform;
+	}
+	
+	label + [placeholder]:focus:-moz-placeholder {
+		color: transparent;
+	}
+	
+	label + [placeholder]:focus::-moz-placeholder {
+		color: transparent;
+	}
+	
+	label + [placeholder]:focus::-webkit-input-placeholder {
+		color: transparent;
+	}
+}
+
+@mixin rem($property, $values, $use-px-fallback: $rem-with-px-fallback) {
+	// Create a couple of empty lists as output buffers.
+	$px-values: ();
+	$rem-values: ();
+
+	// Ensure $values is a list.
+	@if type-of($values) != 'list' {
+		$values: join((), $values);
+	}
+
+	// Loop through the $values list
+	@each $value in $values {
+		// For each property value, if it's in rem or px, derive both rem and
+		// px values for it and add those to the end of the appropriate buffer.
+		// Ensure all pixel values are rounded to the nearest pixel.
+		@if type-of($value) == number and not unitless($value) and (unit($value) == px or unit($value) == rem) {
+			@if unit($value) == px {
+				$px-values: join($px-values, round($value));
+				$rem-values: join($rem-values, convert-length($value, rem));
+			}
+			@else {
+				$px-values: join($px-values, round(convert-length($value, px)));
+				$rem-values: join($rem-values, $value);
+			}
+		}
+		@else {
+			$px-values: join($px-values, $value);
+			$rem-values: join($rem-values, $value);
+		}
+	}
+
+	// Use pixel fallback for browsers that don't understand rem units.
+	@if $use-px-fallback {
+		#{$property}: $px-values;
+	}
+
+	// Use rem values for everyone else (overrides pixel values).
+	#{$property}: $rem-values;
+}
+
+@mixin triangle($direction: right, $width: 5px, $height: 10px, $color: $std-link-color, $layout: true, $border-style: true, $webkit-rotate: true, $important: false) {
+	$hex-color: unquote($color);
+	$rgba-color: rgba($hex-color, 0);
+	$bare-width: strip-units($width);
+	$bare-height: strip-units($height);
+	
+	@if ($hex-color == #000 or $hex-color == #000000) {
+		$rgba-color: false;
+	}
+	
+	@if ($direction == down) {
+		@if ($important != false) {
+			border-color: $hex-color transparent transparent transparent !important;
+		}
+		@else {
+			border-color: $hex-color transparent transparent transparent;
+		}
+		@if ($rgba-color != false) {
+			@if ($important != false) {
+				border-color: $hex-color $rgba-color $rgba-color $rgba-color !important;
+			}
+			@else {
+				border-color: $hex-color $rgba-color $rgba-color $rgba-color;
+			}
+		}
+	}
+	@else if ($direction == left) {
+		@if ($important != false) {
+			border-color: transparent $hex-color transparent transparent !important;
+		}
+		@else {
+			border-color: transparent $hex-color transparent transparent;
+		}
+		@if ($rgba-color != false) {
+			@if ($important != false) {
+				border-color: $rgba-color $hex-color $rgba-color $rgba-color !important;
+			}
+			@else {
+				border-color: $rgba-color $hex-color $rgba-color $rgba-color;
+			}
+		}
+	}
+	@else if ($direction == right) {
+		@if ($important != false) {
+			border-color: transparent transparent transparent $hex-color !important;
+		}
+		@else {
+			border-color: transparent transparent transparent $hex-color;
+		}
+		@if ($rgba-color != false) {
+			@if ($important != false) {
+				border-color: $rgba-color $rgba-color $rgba-color $hex-color !important;
+			}
+			@else {
+				border-color: $rgba-color $rgba-color $rgba-color $hex-color;
+			}
+		}
+	}
+	@else if ($direction == up) {
+		@if ($important != false) {
+			border-color: transparent transparent $hex-color transparent !important;
+		}
+		@else {
+			border-color: transparent transparent $hex-color transparent;
+		}
+		@if ($rgba-color != false) {
+			@if ($important != false) {
+				border-color: $rgba-color $rgba-color $hex-color $rgba-color !important;
+			}
+			@else {
+				border-color: $rgba-color $rgba-color $hex-color $rgba-color;
+			}
+		}
+	}
+	
+	@if ($border-style) {
+		border-style: solid;
+	}
+	
+	@if ($direction == down) {
+		@if ($important != false) {
+			border-width: $bare-height + px + ' ' + ($bare-width / 2) + px + ' 0 ' + ($bare-width / 2) + px !important;
+		}
+		@else {
+			border-width: $bare-height + px + ' ' + ($bare-width / 2) + px + ' 0 ' + ($bare-width / 2) + px;
+		}
+	}
+	@else if ($direction == left) {
+		@if ($important != false) {
+			border-width: ($bare-height / 2) + px + ' ' + $bare-width + px + ' ' + ($bare-height / 2) + px + ' 0' !important;
+		}
+		@else {
+			border-width: ($bare-height / 2) + px + ' ' + $bare-width + px + ' ' + ($bare-height / 2) + px + ' 0';
+		}
+	}
+	@else if ($direction == right) {
+		@if ($important != false) {
+			border-width: ($bare-height / 2) + px + ' 0 ' + ($bare-height / 2) + px + ' ' + $bare-width + px !important;
+		}
+		@else {
+			border-width: ($bare-height / 2) + px + ' 0 ' + ($bare-height / 2) + px + ' ' + $bare-width + px;
+		}
+	}
+	@else if ($direction == up) {
+		@if ($important != false) {
+			border-width: unquote(0 + ' ' + ($bare-width / 2) + px + ' ' + $bare-height + px + ' ' + ($bare-width / 2) + px) !important;
+		}
+		@else {
+			border-width: unquote(0 + ' ' + ($bare-width / 2) + px + ' ' + $bare-height + px + ' ' + ($bare-width / 2) + px);
+		}
+	}
+	
+	@if ($layout == true) {
+		content: '';
+		display: inline-block;
+		height: 0;
+	}
+	
+	@if ($webkit-rotate == true) {
+		-webkit-transform: rotate(360deg);
+	}
+	
+	@if ($layout == true) {
+		width: 0;
+	}
+}
+
+// --------------------------------------------
+//	CSS Property Mixins
+// --------------------------------------------
+
+@import "flex";
+
+$trans-anim-prefixes: (-moz-, -o-, -webkit-, ''); // Not used in keyframes()
+$transitionable-prefixed-values: transform, transform-origin;
+
+@mixin animation($property: default 1s ease) {
+	// name duration timing-function delay direction iteration-count fill-mode
+	@for $i from 0 to length($trans-anim-prefixes) {
+		#{nth($trans-anim-prefixes, ($i + 1))}animation: $property;
+	}
+}
+
+@mixin animation-delay($value: 1s) {
+	@for $i from 0 to length($trans-anim-prefixes) {
+		#{nth($trans-anim-prefixes, ($i + 1))}animation-delay: $value;
+	}
+}
+
+@mixin animation-direction($value: normal) {
+	@for $i from 0 to length($trans-anim-prefixes) {
+		#{nth($trans-anim-prefixes, ($i + 1))}animation-direction: $value;
+	}
+}
+@mixin animation-duration($value: 1s) {
+	@for $i from 0 to length($trans-anim-prefixes) {
+		#{nth($trans-anim-prefixes, ($i + 1))}animation-duration: $value;
+	}
+}
+
+@mixin animation-fill-mode($value: none) {
+	@for $i from 0 to length($trans-anim-prefixes) {
+		#{nth($trans-anim-prefixes, ($i + 1))}animation-fill-mode: $value;
+	}
+}
+
+@mixin animation-iteration-count($value: 1) {
+	@for $i from 0 to length($trans-anim-prefixes) {
+		#{nth($trans-anim-prefixes, ($i + 1))}animation-iteration-count: $value;
+	}
+}
+
+@mixin animation-name($value: default) {
+	@for $i from 0 to length($trans-anim-prefixes) {
+		#{nth($trans-anim-prefixes, ($i + 1))}animation-name: $value;
+	}
+}
+
+@mixin animation-timing-function($value: ease) {
+	@for $i from 0 to length($trans-anim-prefixes) {
+		#{nth($trans-anim-prefixes, ($i + 1))}animation-timing-function: $value;
+	}
+}
+
+@mixin background($color, $duplicate-as-pie: false) {
+	background: $color;
+	@if ($use-pie-background == true and $duplicate-as-pie == true) {
+		-pie-background: $color;
+	}
+}
+
+@mixin border-radius($radius: 5px, $background-clip: padding-box) {
+	@if ($background-clip != false) {
+		background-clip: $background-clip;
+	}
+	
+	-webkit-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin box-shadow($shadow: 0 1px 3px rgba(0,0,0,.25)) {
+	-webkit-box-shadow: $shadow;
+	box-shadow: $shadow;
+}
+
+@mixin box-sizing($boxsize: border-box) {
+	-moz-box-sizing: $boxsize;
+	-webkit-box-sizing: $boxsize;
+	box-sizing: $boxsize;
+}
+
+@mixin font-size-line-height($font-size, $line-height: false, $important: false) {
+	@if ($important == true) {
+		@include rem(font-size, $font-size !important);
+	}
+	@else {
+		@include rem(font-size, $font-size);
+	}
+	
+	@if ($line-height != false) {
+		@include line-height($line-height, $font-size, $important)
+	}
+}
+
+@mixin keyframes($name) {
+	@-moz-keyframes #{$name} {
+		@content;
+	}
+	
+	@-o-keyframes #{$name} {
+		@content;
+	}
+	
+	@-webkit-keyframes #{$name} {
+		@content;
+	}
+	
+	@keyframes #{$name} {
+		@content;
+	}
+}
+
+@mixin line-height($target, $context: 16, $important: false) {
+	@if ($important == true) {
+		line-height: em($target, $context, true) !important;
+	}
+	@else {
+		line-height: em($target, $context, true);
+	}
+}
+
+@mixin pie($position: relative, $path: false) {
+	$pie-path: '';
+	
+	@if ($path != false) {
+		$pie-path: $path;
+	}
+	@else {
+		$pie-path: $default-pie-path;
+	}
+		
+	@if ($position != false) {
+		position: $position;
+	}
+	
+	behavior: url($pie-path);
+}
+
+@mixin rgba($property, $value: '', $color: #000, $opacity: 0.5, $use-fallback: true) {
+	$rgba: '';
+	$composite: '';
+	$property: unquote($property);
+	$value: unquote($value);
+	
+	@if (type-of($color) == list) {
+		$rgba: nth($color, 1);
+		$composite: nth($color, 2);
+	}
+	@else {
+		$rgba: $color;
+		$composite: $color;
+	}
+	
+	@if ($use-fallback) {
+		#{$property}: #{$value} $composite;
+	}
+	
+	#{$property}: #{$value} rgba($rgba, $opacity);
+}
+
+@mixin rgba-background($color, $opacity: 0.5, $use-fallback: true, $use-background-color: false) {
+	$rgba: '';
+	$composite: '';
+	$property: background;
+	
+	@if (type-of($color) == list) {
+		$rgba: nth($color, 1);
+		$composite: nth($color, 2);
+	}
+	@else {
+		$rgba: $color;
+		$composite: $color;
+	}
+	
+	@if ($use-background-color == true) {
+		$property: background-color;
+	}
+	
+	@if ($use-fallback) {
+		#{$property}: $composite;
+	}
+	
+	#{$property}: rgba($rgba, $opacity);
+}
+
+@mixin transform($transform-function: none) {
+	$additional-trans-anim-prefixes: join(-ms-, $trans-anim-prefixes);
+	@for $i from 0 to length($additional-trans-anim-prefixes) {
+		#{nth($additional-trans-anim-prefixes, ($i + 1))}transform: $transform-function;
+	}
+}
+
+@mixin transform-origin($transform-origin: 50% 50% 0) {
+	$additional-trans-anim-prefixes: join(-ms-, $trans-anim-prefixes);
+	@for $i from 0 to length($additional-trans-anim-prefixes) {
+		#{nth($additional-trans-anim-prefixes, ($i + 1))}transform-origin: $transform-origin;
+	}
+}
+
+@mixin transition($property: all ease 0.2s) {
+	@for $i from 0 to length($trans-anim-prefixes) {
+		$combined-property: ();
+		
+		@for $j from 0 to length($property) {
+			$prop: nth($property, ($j + 1));
+			$prop-length: length($prop);
+			$prefixed-property: ();
+				
+			@for $k from 0 to length($prop) {
+				$item: nth($prop, ($k + 1));
+				
+				@if ($prop-length != 1) {
+					@if (($k + 1) == $prop-length and ($j + 1) != length($property)) {
+						$item: $item+ ',';
+						$item: unquote($item);
+					}
+				}
+				
+				@if ($item == nth($transitionable-prefixed-values, 1)) {
+					$prefixed-property: append($prefixed-property, #{nth($trans-anim-prefixes, ($i + 1))}#{$item}, space);
+				}
+				@else if ($item == nth($transitionable-prefixed-values, 2)) {
+					$prefixed-property: append($prefixed-property, #{nth($trans-anim-prefixes, ($i + 1))}#{$item}, space);
+				}
+				@else {
+					$prefixed-property: append($prefixed-property, $item, space);
+				}
+			}
+			
+			$combined-property: join($combined-property, $prefixed-property);
+		}
+		
+		#{nth($trans-anim-prefixes, ($i + 1))}transition: $combined-property;
+	}
+}
+
+@mixin transition-delay($delay: 0.2s) {
+	@for $i from 0 to length($trans-anim-prefixes) {
+		#{nth($trans-anim-prefixes, ($i + 1))}transition-delay: $delay;
+	}
+}
+
+@mixin transition-duration($duration: 0.2s) {
+	@for $i from 0 to length($trans-anim-prefixes) {
+		#{nth($trans-anim-prefixes, ($i + 1))}transition-duration: $duration;
+	}
+}
+
+@mixin transition-property($property: all) {
+	@for $i from 0 to length($trans-anim-prefixes) {
+		$prefixed-property: ();
+		
+		@each $prop in $property {
+			@if ($prop == nth($transitionable-prefixed-values, 1)) {
+				$prefixed-property: append($prefixed-property, #{nth($trans-anim-prefixes, ($i + 1))}#{$prop}, comma);
+			}
+			@else if ($prop == nth($transitionable-prefixed-values, 2)) {
+				$prefixed-property: append($prefixed-property, #{nth($trans-anim-prefixes, ($i + 1))}#{$prop}, comma);
+			}
+			@else {
+				$prefixed-property: append($prefixed-property, $prop, comma);
+			}
+		}
+		
+		#{nth($trans-anim-prefixes, ($i + 1))}transition-property: $prefixed-property;
+	}
+}
+
+@mixin transition-timing-function($timing: ease) {
+	@for $i from 0 to length($trans-anim-prefixes) {
+		#{nth($trans-anim-prefixes, ($i + 1))}transition-timing-function: $timing;
+	}
+}
+
+@mixin viewport($width: device-width) {
+	@if ($is-responsive == true) {
+		@-moz-viewport {
+			width: $width;
+		}
+		
+		@-ms-viewport {
+			width: $width;
+		}
+		
+		@-o-viewport {
+			width: $width;
+		}
+		
+		@-webkit-viewport {
+			width: $width;
+		}
+		
+		@viewport {
+			width: $width;
+		}
+	}
+}

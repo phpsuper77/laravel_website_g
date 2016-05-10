@@ -1,0 +1,31 @@
+{{ var $title: "Blog Post" }}
+{{ var $currentPath: "blog_post.html" }}
+
+{{ include('_head.html', {"title": "$title", "bodyClass": "no_col_1 no_col_3 heading_inside_content"}) }}
+
+{{ include('header.html') }}
+
+<div id="content">
+	<div id="content_inner" class="std_width">
+		
+		<div id="col_2" role="main">
+			
+			{{ include('related-themes.html', {"class": "blog_related"}) }}
+
+			<div class="blog_main">
+
+				{{ include('blog-post-content.html') }}
+				
+				{{ include('blog-about-author.html') }}
+
+			</div>
+
+			{{ include('blog-links.html') }}
+
+		</div>
+	</div>
+</div>
+
+{{ include('footer.html') }}
+
+{{ include('_foot.html') }}

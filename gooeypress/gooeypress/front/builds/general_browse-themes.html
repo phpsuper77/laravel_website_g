@@ -1,0 +1,54 @@
+{{ var $title: "Browse Themes" }}
+{{ var $currentPath: "general_browse-themes.html" }}
+
+{{ include('_head.html', {"title": "$title", "bodyClass": "no_col_1 no_col_3"}) }}
+
+{{ include('header.html') }}
+
+<div id="content">
+	<div id="content_inner" class="std_width content_inner_alt">
+		<h1 class="page_title_primary">Browsing Themes - <span class="h_alt">1,422</span></h1>
+		
+		{{ include('col-3.html') }}
+
+		<div id="col_2" role="main">
+			<div class="h1 page_title_duplicate page_title">Browsing Themes - <span class="h_alt">1,422</span></div>
+			
+			<div class="browse_theme_sorter">
+				<h4 class="browse_theme_sorter_heading">Sort by</h4>
+				<ul class="list_style_none browse_theme_sorter_list">
+					<li><a href="#sort-price-url" class="browse_theme_sorter_btn browse_theme_sorter_btn_current"><span class="icon-arrow-up"></span><!--<span class="icon-arrow-down"></span>--> Price</a></li>
+					<li><a href="#sort-performance-url" class="browse_theme_sorter_btn">Performance</a></li>
+					<li><a href="#sort-popular-url" class="browse_theme_sorter_btn">Popular</a></li>
+					<li><a href="#sort-recently-added-url" class="browse_theme_sorter_btn">Recently Added</a></li>
+					<li><a href="#sort-highest-rated-url" class="browse_theme_sorter_btn"> Highest Rated</a></li>
+				</ul>
+			</div>
+			
+			<ol class="std_mt grid_container browse_theme_grid_container" start="1"> <!-- Change start value depending on which page you're on -->
+				{{ include('browse-theme-item.html', {"theme": "TwitrCovers", "image": "twitrcovers", "unsaved": true, "saved": false, "sponsored": false, "free": true, "paid": false, "cost": ""}) }}
+				{{ include('browse-theme-item.html', {"theme": "Balance Theme", "image": "balance", "unsaved": true, "saved": false, "sponsored": true, "free": false, "paid": true, "cost": "49"}) }}
+				{{ include('browse-theme-item.html', {"theme": "Amped Theme", "image": "amped", "unsaved": true, "saved": false, "sponsored": false, "free": false, "paid": true, "cost": "39/m"}) }}
+				{{ include('browse-theme-item.html', {"theme": "Agency Theme Collection", "image": "agency", "unsaved": false, "saved": true, "sponsored": false, "free": false, "paid": true, "cost": "39/m"}) }}
+				{{ include('browse-theme-item.html', {"theme": "Balance Theme 2", "image": "balance", "unsaved": true, "saved": false, "sponsored": true, "free": false, "paid": true, "cost": "49"}) }}
+				{{ include('browse-theme-item.html', {"theme": "Agency Theme Collection 2", "image": "agency", "unsaved": false, "saved": true, "sponsored": false, "free": false, "paid": true, "cost": "39/m"}) }}
+				{{ include('browse-theme-item.html', {"theme": "TwitrCovers 2", "image": "twitrcovers", "unsaved": true, "saved": false, "sponsored": false, "free": true, "paid": false, "cost": ""}) }}
+				{{ include('browse-theme-item.html', {"theme": "Amped Theme 2", "image": "amped", "unsaved": true, "saved": false, "sponsored": false, "free": false, "paid": true, "cost": "39/m"}) }}
+				{{ include('browse-theme-item.html', {"theme": "TwitrCovers", "image": "twitrcovers", "unsaved": true, "saved": false, "sponsored": false, "free": true, "paid": false, "cost": ""}) }}
+				{{ include('browse-theme-item.html', {"theme": "Balance Theme", "image": "balance", "unsaved": true, "saved": false, "sponsored": true, "free": false, "paid": true, "cost": "49"}) }}
+				{{ include('browse-theme-item.html', {"theme": "Amped Theme", "image": "amped", "unsaved": true, "saved": false, "sponsored": false, "free": false, "paid": true, "cost": "39/m"}) }}
+				{{ include('browse-theme-item.html', {"theme": "Agency Theme Collection", "image": "agency", "unsaved": false, "saved": true, "sponsored": false, "free": false, "paid": true, "cost": "39/m"}) }}
+				{{ include('browse-theme-item.html', {"theme": "Balance Theme 2", "image": "balance", "unsaved": true, "saved": false, "sponsored": true, "free": false, "paid": true, "cost": "49"}) }}
+				{{ include('browse-theme-item.html', {"theme": "Agency Theme Collection 2", "image": "agency", "unsaved": false, "saved": true, "sponsored": false, "free": false, "paid": true, "cost": "39/m"}) }}
+				{{ include('browse-theme-item.html', {"theme": "TwitrCovers 2", "image": "twitrcovers", "unsaved": true, "saved": false, "sponsored": false, "free": true, "paid": false, "cost": ""}) }}
+				{{ include('browse-theme-item.html', {"theme": "Amped Theme 2", "image": "amped", "unsaved": true, "saved": false, "sponsored": false, "free": false, "paid": true, "cost": "39/m"}) }}
+			</ol>
+			
+			{{ include('pagination.html', {"additionalClass": "no_mt"}) }}
+		</div>
+	</div>
+</div>
+
+{{ include('footer.html') }}
+
+{{ include('_foot.html') }}

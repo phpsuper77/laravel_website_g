@@ -1,0 +1,64 @@
+{{ var $title: "Email Notification Preferences - Account" }}
+{{ var $currentPath: "account_email-preferences.html" }}
+
+{{ include('_head.html', {"title": "$title", "bodyClass": ""}) }}
+
+{{ include('header.html') }}
+
+<div id="content">
+	<div id="content_inner" class="std_width">
+		<h1 class="page_title_primary">Account - <span class="h_alt">James Wood</span></h1>
+		
+		{{ include('account-navigation.html', {"currentPath": "$currentPath"}) }}
+		
+		{{ include('col-3.html') }}
+
+		<div id="col_2" role="main">
+			<div class="h1 page_title_duplicate">Account - <span class="h_alt">James Wood</span></div>
+			
+			<div><h2 class="page_sub_title">Email Notification Preferences</h2></div>
+			
+			<form action="#" method="get">
+				<fieldset class="rc rc_no_ml">
+					<legend>Email Notification Preferences</legend>
+					
+					<ul class="dbl_mb">
+						<li>
+							<input type="checkbox" value="true" name="pref1" id="pref1" disabled>
+							<label for="pref1" disabled>Recieve infrequent Gooeypress notifications, updates and announcements.</label>
+						</li>
+						<li>
+							<input type="checkbox" value="true" name="pref2" id="pref2">
+							<label for="pref2">Get notifications on top new products</label>
+						</li>
+						<li>
+							<input type="checkbox" value="true" name="pref3" id="pref3">
+							<label for="pref3">Get notifications when new free themes come online. </label>
+						</li>
+						<li>
+							<input type="checkbox" value="true" name="pref4" id="pref4">
+							<label for="pref4">Get new recommendations each week</label>
+						</li>
+						<li>
+							<input type="checkbox" value="true" name="pref5" id="pref5">
+							<label for="pref5">Get notifications of blog posts</label>
+						</li>
+						<li>
+							<input type="checkbox" value="true" name="pref6" id="pref6">
+							<label for="pref6">Get notification on competions and free give aways</label>
+						</li>
+					</ul>
+					
+					<div class="btns dbl_mt btns_no_ml">
+						<button type="submit">Change Preferences</button>
+					</div>
+				</fieldset>
+			</form>
+			
+		</div>
+	</div>
+</div>
+
+{{ include('footer.html') }}
+
+{{ include('_foot.html') }}
